@@ -1,7 +1,7 @@
-package com.memorynotfound.controller;
+package com.oopsmails.controller;
 
-import com.memorynotfound.model.User;
-import com.memorynotfound.service.UserService;
+import com.oopsmails.model.User;
+import com.oopsmails.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

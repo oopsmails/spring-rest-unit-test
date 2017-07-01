@@ -1,11 +1,11 @@
-package com.memorynotfound.test;
+package com.oopsmails.test;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.memorynotfound.config.WebConfig;
-import com.memorynotfound.controller.UserController;
-import com.memorynotfound.filter.CORSFilter;
-import com.memorynotfound.model.User;
-import com.memorynotfound.service.UserService;
+import com.oopsmails.config.WebConfig;
+import com.oopsmails.controller.UserController;
+import com.oopsmails.filter.CORSFilter;
+import com.oopsmails.model.User;
+import com.oopsmails.service.UserService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

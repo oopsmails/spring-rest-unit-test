@@ -1,7 +1,7 @@
-package com.memorynotfound.test;
+package com.oopsmails.test;
 
-import com.memorynotfound.config.WebConfig;
-import com.memorynotfound.model.User;
+import com.oopsmails.config.WebConfig;
+import com.oopsmails.model.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

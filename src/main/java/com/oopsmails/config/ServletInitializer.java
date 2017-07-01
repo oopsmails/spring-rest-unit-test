@@ -1,6 +1,6 @@
-package com.memorynotfound.config;
+package com.oopsmails.config;
 
-import com.memorynotfound.filter.CORSFilter;
+import com.oopsmails.filter.CORSFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 import javax.servlet.Filter;

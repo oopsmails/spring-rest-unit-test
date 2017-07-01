@@ -1,4 +1,4 @@
-package com.memorynotfound.model;
+package com.oopsmails.model;
 
 import java.io.Serializable;
 

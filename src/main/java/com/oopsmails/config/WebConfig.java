@@ -1,4 +1,4 @@
-package com.memorynotfound.config;
+package com.oopsmails.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -9,7 +9,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 
 @EnableWebMvc
 @Configuration
-@ComponentScan("com.memorynotfound")
+@ComponentScan("com.oopsmails")
 public class WebConfig extends WebMvcConfigurerAdapter {
 
     @Bean

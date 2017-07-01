@@ -1,6 +1,6 @@
-package com.memorynotfound.service;
+package com.oopsmails.service;
 
-import com.memorynotfound.model.User;
+import com.oopsmails.model.User;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
