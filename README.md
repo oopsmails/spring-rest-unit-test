@@ -8,4 +8,6 @@ MockMvc
 
 testing merging master ...
 
+test merging feature branch ...
+
 
