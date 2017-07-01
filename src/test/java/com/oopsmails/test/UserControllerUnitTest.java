@@ -4,6 +4,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.oopsmails.config.WebConfig;
 import com.oopsmails.controller.UserController;
 import com.oopsmails.filter.CORSFilter;
+import com.oopsmails.legcybean.LogLevelType;
+import com.oopsmails.legcybean.TestService;
 import com.oopsmails.model.User;
 import com.oopsmails.service.UserService;
 import com.oopsmails.test.config.WebConfigTest;
@@ -13,6 +15,7 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -39,6 +42,9 @@ public class UserControllerUnitTest {
     @InjectMocks
     private UserController userController;
 
+    @Autowired
+    private TestService testService;
+
     @Before
     public void init(){
         MockitoAnnotations.initMocks(this);
@@ -52,6 +58,9 @@ public class UserControllerUnitTest {
 
     @Test
     public void test_get_all_success() throws Exception {
+        LogLevelType logLevel = testService.determineLogLevelType(1);
+        System.out.println("================= logLevel = " + logLevel);
+
         List<User> users = Arrays.asList(
                 new User(1, "Daenerys Targaryen"),
                 new User(2, "John Snow"));
