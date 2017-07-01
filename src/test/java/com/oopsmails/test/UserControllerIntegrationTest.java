@@ -1,6 +1,7 @@
 package com.oopsmails.test;
 
 import com.oopsmails.config.WebConfig;
+import com.oopsmails.legcybean.TestService;
 import com.oopsmails.model.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -34,6 +35,9 @@ public class UserControllerIntegrationTest {
 
     @Autowired
     private RestTemplate template;
+
+    @Autowired
+    private TestService testService;
 
     // =========================================== Get All Users ==========================================
 

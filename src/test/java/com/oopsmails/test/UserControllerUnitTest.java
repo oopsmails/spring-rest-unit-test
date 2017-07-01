@@ -6,6 +6,7 @@ import com.oopsmails.controller.UserController;
 import com.oopsmails.filter.CORSFilter;
 import com.oopsmails.model.User;
 import com.oopsmails.service.UserService;
+import com.oopsmails.test.config.WebConfigTest;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -27,7 +28,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @WebAppConfiguration
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {WebConfig.class})
+@ContextConfiguration(classes = {WebConfigTest.class})
 public class UserControllerUnitTest {
 
     private MockMvc mockMvc;
