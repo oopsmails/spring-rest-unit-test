@@ -1,8 +1,8 @@
 package com.oopsmails.test;
 
 import com.oopsmails.config.WebConfig;
-import com.oopsmails.legcybean.TestService;
 import com.oopsmails.model.User;
+import com.oopsmails.legcybean.TestService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

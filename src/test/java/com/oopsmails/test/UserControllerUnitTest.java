@@ -1,14 +1,13 @@
 package com.oopsmails.test;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.oopsmails.config.WebConfig;
 import com.oopsmails.controller.UserController;
 import com.oopsmails.filter.CORSFilter;
 import com.oopsmails.legcybean.LogLevelType;
-import com.oopsmails.legcybean.TestService;
 import com.oopsmails.model.User;
-import com.oopsmails.service.UserService;
 import com.oopsmails.test.config.WebConfigTest;
+import com.oopsmails.legcybean.TestService;
+import com.oopsmails.service.UserService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

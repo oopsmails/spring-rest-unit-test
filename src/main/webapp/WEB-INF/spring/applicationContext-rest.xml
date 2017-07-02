@@ -15,52 +15,7 @@
 
 	<!--<import resource="classpath:applicationContext-core.xml" />-->
 
-	<context:component-scan base-package="com.oopsmails" />
-
-    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-          <!-- default values -->
-          <property name="properties">
-            <props>
-			  <!-- 
-	              NOTE: Beware of Spring bug when default value, if defined is always used in case of 
-	              multiple PropertyPlaceholderConfigurer's (as in our case):
-	              https://jira.spring.io/browse/SPR-9989
-	              
-	              As a result following would always result in 'true' no matter what values we would have here 
-	              because there is prior PPC in imported context
-	              @Value("${foo:true}")
-			   -->              
-              <!-- define if validators are chained, or returning right after getting first error -->
-              <prop key="multiple.validators.chained">true</prop>
-              <!-- define Aspects enabled or disabled -->
-              <prop key="service.logging.rqrs.aspect.enabled">true</prop>
-              <prop key="service.logging.exec.time.aspect.enabled">true</prop>
-              <prop key="service.validation.aspect.enabled">true</prop>
-              <prop key="service.audit.aspect.enabled">true</prop>
-
-              <prop key="service.response.validation.enabled">false</prop>
-
-              <prop key="uriRepositoryName">uriRepositoryEntityTypeImpl</prop>
-              <prop key="versionRepositoryName">versionRepositoryDaoImpl</prop>
-              <prop key="restservice.uri.prefix">http://localhost:8080/rest/api/</prop>
-			  <!-- 
-              <prop key="pagination_default_page_num">1</prop>
-              <prop key="pagination_default_page_size">10</prop>
-              <prop key="pagination_max_return_size">500</prop>
-              
-              <prop key="doc_resource_client_download_source_dir">C:/Temp/download/</prop>
-              <prop key="doc_resource_client_upload_target_dir">C:/Temp/upload/</prop>
-               -->
-            </props>
-          </property>
-      <property name="locations">
-        <list>
-            <value>file:${app.home}/service.properties</value>
-        </list>
-      </property>
-      <property name="ignoreUnresolvablePlaceholders" value="true" />
-      <property name="ignoreResourceNotFound" value="true"/>
-    </bean>
+	<!--<context:component-scan base-package="com.oopsmails" />-->
 
     <bean id="testService" class="com.oopsmails.legcybean.TestServiceImpl" />
 </beans>
