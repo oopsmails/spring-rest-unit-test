@@ -14,6 +14,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/users")
@@ -26,6 +27,19 @@ public class UserController {
 
     // =========================================== Get All Users ==========================================
 
+    /**
+     * Cannot use following ...
+     * public ResponseEntity<List<User>> getAll(@RequestParam(value = "id", required = false) Optional<Integer>[] ids) {
+     *
+     * First, in this multiple ids case, even Optional<Integer>[] will not work as "required = false",
+     * i.e, get all, still expecting request param id to be passed in.
+     *
+     * Second, using Optional<Integer>[] will take id = "a" without error and pass it down the road,
+     * making weird behavior in Service.
+     *
+     * @param ids
+     * @return
+     */
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<List<User>> getAll(@RequestParam(value = "id", required = false) Integer[] ids) {
         LOG.info("getting all users");
@@ -33,6 +47,7 @@ public class UserController {
 
         if (ids != null && ids.length > 0) {
             users = userService.getByIds(Arrays.asList(ids));
+//            users = userService.getByIds(getIdList(ids));
         } else {
             users = userService.getAll();
         }
@@ -43,6 +58,22 @@ public class UserController {
         }
 
         return new ResponseEntity<>(users, HttpStatus.OK);
+    }
+
+    /**
+     * If id = "a" is passed in, the get a List<Integer> containing "a" inside!
+     *
+     * @param ids
+     * @return
+     */
+    private static List<Integer> getIdList(Optional<Integer>[] ids) {
+        List<Integer> retval = new ArrayList<>();
+        Arrays.stream(ids).forEach( id -> {
+            if (id.isPresent()) {
+                retval.add(id.get());
+            }
+        });
+        return retval;
     }
 
     // =========================================== Get User By ID =========================================
