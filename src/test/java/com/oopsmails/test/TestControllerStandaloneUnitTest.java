@@ -5,6 +5,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -16,6 +17,7 @@ import org.springframework.web.context.WebApplicationContext;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -37,7 +39,7 @@ public class TestControllerStandaloneUnitTest {
         mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
     }
 
-    // =========================================== Get All Users ==========================================
+    // =========================================== Get Users by Ids ==========================================
 
     @Test
     public void test_get_by_ids_success() throws Exception {
@@ -54,5 +56,19 @@ public class TestControllerStandaloneUnitTest {
         String responseContent = mvcResult.getResponse().getContentAsString();
         System.out.println("responseContent = " + responseContent);
 
+    }
+
+    @Test
+    public void test_get_by_ids_fail_01() throws Exception {
+        final String ERR_MSG = "Failed to convert value of type [java.lang.String[]] to required type [java.lang.Integer[]]";
+        MvcResult mvcResult = mockMvc.perform(get("/users").param("id", "a").param("id", "3"))
+                .andExpect(status().is(HttpStatus.BAD_REQUEST.value()))
+                .andReturn();
+
+        String responseContent = mvcResult.getResponse().getContentAsString();
+        System.out.println("responseContent = " + responseContent);
+        String errMsg = mvcResult.getResolvedException().getMessage();
+        System.out.println("errMsg = " + errMsg);
+        assertEquals(true, errMsg.indexOf(ERR_MSG) >= 0);
     }
 }
