@@ -1,0 +1,58 @@
+package com.oopsmails.test;
+
+import com.oopsmails.test.config.WebConfigTest;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.context.WebApplicationContext;
+
+import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.is;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+
+/**
+ * Created by liu on 2017-07-07.
+ */
+
+@WebAppConfiguration
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = {WebConfigTest.class})
+public class TestControllerStandaloneUnitTest {
+    @Autowired
+    private WebApplicationContext webApplicationContext;
+
+    private MockMvc mockMvc;
+
+    @Before
+    public void init() {
+        mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
+    }
+
+    // =========================================== Get All Users ==========================================
+
+    @Test
+    public void test_get_by_ids_success() throws Exception {
+        MvcResult mvcResult = mockMvc.perform(get("/users").param("id", "1").param("id", "3"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+                .andExpect(jsonPath("$", hasSize(2)))
+                .andExpect(jsonPath("$[0].id", is(1)))
+                .andExpect(jsonPath("$[0].username", is("Daenerys Targaryen")))
+                .andExpect(jsonPath("$[1].id", is(3)))
+                .andExpect(jsonPath("$[1].username", is("Arya Stark")))
+                .andReturn();
+
+        String responseContent = mvcResult.getResponse().getContentAsString();
+        System.out.println("responseContent = " + responseContent);
+
+    }
+}

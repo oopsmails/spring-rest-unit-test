@@ -10,6 +10,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @RestController
@@ -24,26 +27,32 @@ public class UserController {
     // =========================================== Get All Users ==========================================
 
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<List<User>> getAll() {
+    public ResponseEntity<List<User>> getAll(@RequestParam(value = "id", required = false) Integer[] ids) {
         LOG.info("getting all users");
-        List<User> users = userService.getAll();
+        List<User> users = new ArrayList<>();
 
-        if (users == null || users.isEmpty()){
-            LOG.info("no users found");
-            return new ResponseEntity<List<User>>(HttpStatus.NO_CONTENT);
+        if (ids != null && ids.length > 0) {
+            users = userService.getByIds(Arrays.asList(ids));
+        } else {
+            users = userService.getAll();
         }
 
-        return new ResponseEntity<List<User>>(users, HttpStatus.OK);
+        if (users == null || users.isEmpty()) {
+            LOG.info("no users found");
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+
+        return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
     // =========================================== Get User By ID =========================================
 
     @RequestMapping(value = "{id}", method = RequestMethod.GET)
-    public ResponseEntity<User> get(@PathVariable("id") int id){
+    public ResponseEntity<User> get(@PathVariable("id") int id) {
         LOG.info("getting user with id: {}", id);
         User user = userService.findById(id);
 
-        if (user == null){
+        if (user == null) {
             LOG.info("user with id {} not found", id);
             return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
         }
@@ -54,10 +63,10 @@ public class UserController {
     // =========================================== Create New User ========================================
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<Void> create(@RequestBody User user, UriComponentsBuilder ucBuilder){
+    public ResponseEntity<Void> create(@RequestBody User user, UriComponentsBuilder ucBuilder) {
         LOG.info("creating new user: {}", user);
 
-        if (userService.exists(user)){
+        if (userService.exists(user)) {
             LOG.info("a user with name " + user.getUsername() + " already exists");
             return new ResponseEntity<Void>(HttpStatus.CONFLICT);
         }
@@ -72,11 +81,11 @@ public class UserController {
     // =========================================== Update Existing User ===================================
 
     @RequestMapping(value = "{id}", method = RequestMethod.PUT)
-    public ResponseEntity<User> update(@PathVariable int id, @RequestBody User user){
+    public ResponseEntity<User> update(@PathVariable int id, @RequestBody User user) {
         LOG.info("updating user: {}", user);
         User currentUser = userService.findById(id);
 
-        if (currentUser == null){
+        if (currentUser == null) {
             LOG.info("User with id {} not found", id);
             return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
         }
@@ -91,11 +100,11 @@ public class UserController {
     // =========================================== Delete User ============================================
 
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
-    public ResponseEntity<Void> delete(@PathVariable("id") int id){
+    public ResponseEntity<Void> delete(@PathVariable("id") int id) {
         LOG.info("deleting user with id: {}", id);
         User user = userService.findById(id);
 
-        if (user == null){
+        if (user == null) {
             LOG.info("Unable to delete. User with id {} not found", id);
             return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
         }

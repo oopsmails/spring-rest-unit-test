@@ -26,8 +26,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findById(int id) {
-        for (User user : users){
-            if (user.getId() == id){
+        for (User user : users) {
+            if (user.getId() == id) {
                 return user;
             }
         }
@@ -36,8 +36,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findByName(String name) {
-        for (User user : users){
-            if (user.getUsername().equals(name)){
+        for (User user : users) {
+            if (user.getUsername().equals(name)) {
                 return user;
             }
         }
@@ -65,6 +65,18 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean exists(User user) {
         return findByName(user.getUsername()) != null;
+    }
+
+    @Override
+    public List<User> getByIds(List<Integer> ids) {
+        List<User> retval = new ArrayList<>();
+        for (User user : users) {
+            if (ids.contains(user.getId())) {
+                retval.add(user);
+            }
+        }
+
+        return retval;
     }
 
 }

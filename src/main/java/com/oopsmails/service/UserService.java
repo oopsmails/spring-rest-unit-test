@@ -19,4 +19,6 @@ public interface UserService {
     void delete(int id);
 
     boolean exists(User user);
+
+    List<User> getByIds(List<Integer> ids);
 }
