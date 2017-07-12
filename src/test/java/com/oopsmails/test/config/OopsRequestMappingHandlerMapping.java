@@ -15,7 +15,7 @@ import java.lang.reflect.Method;
  * Created by liu on 2017-07-11.
  */
 public class OopsRequestMappingHandlerMapping extends RequestMappingHandlerMapping {
-    private RequestMappingInfo.BuilderConfiguration config = new RequestMappingInfo.BuilderConfiguration();
+//    private RequestMappingInfo.BuilderConfiguration config = new RequestMappingInfo.BuilderConfiguration();
 
     @Override
     protected boolean isHandler(Class<?> beanType) {
@@ -43,7 +43,7 @@ public class OopsRequestMappingHandlerMapping extends RequestMappingHandlerMappi
 
         if (result == null) {
             Restful restful = AnnotatedElementUtils.findMergedAnnotation(element, Restful.class);
-            result = (requestMapping != null ? createRequestMappingInfo(restful, condition) : null);
+            result = (restful != null ? createRequestMappingInfo(restful, condition) : null);
         }
 
         return result;
@@ -61,7 +61,7 @@ public class OopsRequestMappingHandlerMapping extends RequestMappingHandlerMappi
                 .produces(restful.produces())
                 .mappingName(restful.name())
                 .customCondition(customCondition)
-                .options(this.config)
+//                .options(this.config)
                 .build();
     }
 }
