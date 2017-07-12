@@ -1,5 +1,6 @@
 package com.oopsmails.controller;
 
+import com.oopsmails.annotation.Restful;
 import com.oopsmails.model.User;
 import com.oopsmails.service.UserService;
 import org.slf4j.Logger;
@@ -16,8 +17,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-@RestController
-@RequestMapping("/users")
+//@RestController
+@Restful("/users")
+//@RequestMapping("/users")
 public class UserController {
 
     private final Logger LOG = LoggerFactory.getLogger(UserController.class);
@@ -40,7 +42,8 @@ public class UserController {
      * @param ids
      * @return
      */
-    @RequestMapping(method = RequestMethod.GET)
+//    @RequestMapping(method = RequestMethod.GET)
+    @Restful(method = RequestMethod.GET)
     public ResponseEntity<List<User>> getAll(@RequestParam(value = "id", required = false) Integer[] ids) {
         LOG.info("getting all users");
         List<User> users = new ArrayList<>();
