@@ -1,6 +1,7 @@
 package com.oopsmails.annotation;
 
 import org.springframework.core.annotation.AliasFor;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -12,7 +13,8 @@ import java.lang.annotation.*;
 @Documented
 @Controller
 @ResponseBody
-public @interface Restful {
+//@Component
+public @interface CustomTestAnnotation {
     String name() default "";
 
     @AliasFor("path")

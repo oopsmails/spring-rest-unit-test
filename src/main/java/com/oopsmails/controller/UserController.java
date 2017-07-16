@@ -1,6 +1,6 @@
 package com.oopsmails.controller;
 
-import com.oopsmails.annotation.Restful;
+import com.oopsmails.annotation.CustomTestAnnotation;
 import com.oopsmails.model.User;
 import com.oopsmails.service.UserService;
 import org.slf4j.Logger;
@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Optional;
 
 //@RestController
-@Restful("/users")
+@CustomTestAnnotation("/users")
 //@RequestMapping("/users")
 public class UserController {
 
@@ -43,7 +43,7 @@ public class UserController {
      * @return
      */
 //    @RequestMapping(method = RequestMethod.GET)
-    @Restful(method = RequestMethod.GET)
+    @CustomTestAnnotation(method = RequestMethod.GET)
     public ResponseEntity<List<User>> getAll(@RequestParam(value = "id", required = false) Integer[] ids) {
         LOG.info("getting all users");
         List<User> users = new ArrayList<>();

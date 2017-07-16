@@ -1,8 +1,7 @@
 package com.oopsmails.test.config;
 
-import com.oopsmails.annotation.Restful;
+import com.oopsmails.annotation.CustomTestAnnotation;
 import org.springframework.core.annotation.AnnotatedElementUtils;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.condition.RequestCondition;
 import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
@@ -19,7 +18,7 @@ public class OopsRequestMappingHandlerMapping extends RequestMappingHandlerMappi
 
     @Override
     protected boolean isHandler(Class<?> beanType) {
-        return (AnnotatedElementUtils.hasAnnotation(beanType, Restful.class) ||
+        return (AnnotatedElementUtils.hasAnnotation(beanType, CustomTestAnnotation.class) ||
                 super.isHandler(beanType));
     }
 
@@ -42,24 +41,24 @@ public class OopsRequestMappingHandlerMapping extends RequestMappingHandlerMappi
         RequestMappingInfo result = (requestMapping != null ? createRequestMappingInfo(requestMapping, condition) : null);
 
         if (result == null) {
-            Restful restful = AnnotatedElementUtils.findMergedAnnotation(element, Restful.class);
-            result = (restful != null ? createRequestMappingInfo(restful, condition) : null);
+            CustomTestAnnotation customTestAnnotation = AnnotatedElementUtils.findMergedAnnotation(element, CustomTestAnnotation.class);
+            result = (customTestAnnotation != null ? createRequestMappingInfo(customTestAnnotation, condition) : null);
         }
 
         return result;
     }
 
     protected RequestMappingInfo createRequestMappingInfo(
-            Restful restful, RequestCondition<?> customCondition) {
+            CustomTestAnnotation customTestAnnotation, RequestCondition<?> customCondition) {
 
         return RequestMappingInfo
-                .paths(resolveEmbeddedValuesInPatterns(restful.value()))
-                .methods(restful.method())
-                .params(restful.params())
-                .headers(restful.headers())
-                .consumes(restful.consumes())
-                .produces(restful.produces())
-                .mappingName(restful.name())
+                .paths(resolveEmbeddedValuesInPatterns(customTestAnnotation.value()))
+                .methods(customTestAnnotation.method())
+                .params(customTestAnnotation.params())
+                .headers(customTestAnnotation.headers())
+                .consumes(customTestAnnotation.consumes())
+                .produces(customTestAnnotation.produces())
+                .mappingName(customTestAnnotation.name())
                 .customCondition(customCondition)
 //                .options(this.config)
                 .build();
