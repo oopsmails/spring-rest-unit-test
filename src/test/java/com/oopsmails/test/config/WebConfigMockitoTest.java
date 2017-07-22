@@ -13,11 +13,12 @@ import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandl
  * Created by liu on 2017-07-12.
  */
 
-@EnableWebMvc
-@Configuration
-@ImportResource("classpath:applicationContext-rest-test.xml")
-@Import({WebConfig.class})
-@ComponentScan("com.oopsmails")
+//@EnableWebMvc
+//@Configuration
+//@ImportResource("classpath:applicationContext-rest-test.xml")
+//@Import({WebConfig.class})
+//@ComponentScan("com.oopsmails")
+//@EnableAspectJAutoProxy
 public class WebConfigMockitoTest extends WebMvcConfigurationSupport {
     @Bean
     public RestTemplate template() {

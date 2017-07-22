@@ -70,6 +70,22 @@ public class TestControllerStandaloneUnitTest {
     }
 
     @Test
+    public void test_get_by_ids_success_aop_changed_param() throws Exception {
+        MvcResult mvcResult = mockMvc.perform(get("/users").param("id", "2").param("id", "3"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+                .andExpect(jsonPath("$", hasSize(2)))
+                .andExpect(jsonPath("$[0].id", is(1))) // this is changed dynamically by MethodParameterAspect
+                .andExpect(jsonPath("$[0].username", is("Daenerys Targaryen")))
+                .andExpect(jsonPath("$[1].id", is(3)))
+                .andExpect(jsonPath("$[1].username", is("Arya Stark")))
+                .andReturn();
+
+        String responseContent = mvcResult.getResponse().getContentAsString();
+        System.out.println("responseContent = " + responseContent);
+    }
+
+    @Test
     public void test_get_by_ids_fail_01() throws Exception {
         final String ERR_MSG = "Failed to convert value of type [java.lang.String[]] to required type [java.lang.Integer[]]";
         MvcResult mvcResult = mockMvc.perform(get("/users").param("id", "a").param("id", "3"))

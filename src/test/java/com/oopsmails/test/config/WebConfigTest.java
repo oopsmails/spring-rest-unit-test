@@ -13,6 +13,7 @@ import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandl
 @ImportResource("classpath:applicationContext-rest-test.xml")
 @Import({WebConfig.class })
 @ComponentScan("com.oopsmails")
+@EnableAspectJAutoProxy
 public class WebConfigTest extends //WebMvcConfigurerAdapter {
         WebMvcConfigurationSupport {
     @Bean
